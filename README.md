@@ -17,17 +17,7 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
-
-Some prompts to answer:
-
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
-
-You can include a simple diagram or bullet list if helpful.
+The recommender will use a Gaussian Similarity approach to weigh songs against a user's preferences. The most important attributes for the similarity score are energy, valence, danceability, acousticness and a normalized tempo_bpm. `UserProfile` will store the value of these attributes based on the user's preference. The `Recommender` will calculate the score of a song using the formula `score = e^(-(diff^2) / (2*sigma^2)`, where `diff = |user_preference - song_value|` for each attribute, and where sigma is the tolerance level of the `Recommender` for each attribute. Songs will be recommended based on their total score and how they compare to each other.
 
 ---
 
@@ -41,6 +31,7 @@ You can include a simple diagram or bullet list if helpful.
    python -m venv .venv
    source .venv/bin/activate      # Mac or Linux
    .venv\Scripts\activate         # Windows
+   ```
 
 2. Install dependencies
 
@@ -101,14 +92,14 @@ Write 1 to 2 paragraphs here about what you learned:
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
 
-
 ---
 
 ## 7. `model_card_template.md`
 
-Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}  
+Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}
 
-```markdown
+markdown
+
 # 🎧 Model Card - Music Recommender Simulation
 
 ## 1. Model Name
@@ -140,6 +131,30 @@ Describe your scoring logic in plain language.
 
 Try to avoid code in this section, treat it like an explanation to a non programmer.
 
+```mermaid
+flowchart TD
+    A([User Preferences]) --> B[Load UserProfile\nfavorite_genre · favorite_mood\ntarget_energy · likes_acoustic]
+    B --> C[Load Songs from CSV\nvia load_songs]
+    C --> D{For each Song\nin catalog}
+
+    D --> E[Genre Match?\nfavorite_genre == song.genre]
+    D --> F[Mood Match?\nfavorite_mood == song.mood]
+    D --> G[Energy Score\nabs target_energy - song.energy]
+    D --> H[Acoustic Score\nlikes_acoustic × acousticness]
+
+    E --> I[Add genre bonus]
+    F --> J[Add mood bonus]
+    G --> K[Compute energy delta]
+    H --> L[Add acoustic bonus]
+
+    I & J & K & L --> M[Weighted Sum\n= final score for song]
+    M --> N{More songs\nremaining?}
+    N -- Yes --> D
+    N -- No --> O[Sort all songs\nby score descending]
+    O --> P[Slice top K]
+    P --> Q([Top K Recommendations\nreturned as ranked list])
+```
+
 ---
 
 ## 4. Data
@@ -158,6 +173,7 @@ Describe your dataset.
 Where does your recommender work well
 
 You can think about:
+
 - Situations where the top results "felt right"
 - Particular user profiles it served well
 - Simplicity or transparency benefits
@@ -169,6 +185,7 @@ You can think about:
 Where does your recommender struggle
 
 Some prompts:
+
 - Does it ignore some genres or moods
 - Does it treat all users as if they have the same taste shape
 - Is it biased toward high energy or one genre by default
@@ -181,6 +198,7 @@ Some prompts:
 How did you check your system
 
 Examples:
+
 - You tried multiple user profiles and wrote down whether the results matched your expectations
 - You compared your simulation to what a real app like Spotify or YouTube tends to recommend
 - You wrote tests for your scoring logic
@@ -209,3 +227,14 @@ A few sentences about what you learned:
 - How did building this change how you think about real music recommenders
 - Where do you think human judgment still matters, even if the model seems "smart"
 
+# TF Submission: Justin Dingeman
+
+1. The core concept students needed to understand.
+
+2. Where students are most likely to struggle
+
+- The instructions are confusing, particularly in Phase 2. The student would have already described their scoring method in the README.md, but this section goes on further to have the student open a new chat session, and ask Copilot to come up with another scoring system based on the data. This can cause unnecessary confusion because the student will be questioning which of the two chatbot sessions they should be going with, especially since the new chat session no longer has the context that was discussed in the previous session. The flow of steps is also confusing, and seems to imply a very rigid structure needed for development.
+
+3. Where AI was helpful vs. misleading
+
+4. One way they would guide a student without giving the answer

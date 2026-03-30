@@ -9,3 +9,13 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
 9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
 10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
+11,Desert Highway,Red Dune,country,relaxed,0.55,98,0.74,0.61,0.67
+12,Bass Cathedral,Dreadcore,metal,intense,0.96,168,0.22,0.44,0.03
+13,Sunday Morning Haze,The Velvet Keys,jazz,relaxed,0.31,84,0.78,0.48,0.93
+14,Neon Jungle,Synthex,synthwave,moody,0.80,120,0.43,0.85,0.09
+15,Porch Swing Blues,Delta Ray,blues,moody,0.48,96,0.38,0.52,0.81
+16,Starfield Drift,Pale Horizon,ambient,focused,0.22,55,0.61,0.35,0.97
+17,Festival Ground,Circuit Rush,edm,happy,0.95,128,0.88,0.94,0.04
+18,Rainy Bookstore,Hollow Pine,indie pop,chill,0.44,102,0.67,0.57,0.74
+19,Iron Resolve,Graywolf,rock,intense,0.88,144,0.34,0.71,0.12
+20,Golden Hour Walk,June & The Sparrows,folk,happy,0.52,108,0.86,0.63,0.88
