@@ -77,13 +77,25 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, str]:
     BPM_MIN, BPM_MAX = 55, 168  # range from current catalog
 
     # --- weights must sum to 1.0 ---
+    # EXPERIMENT: energy doubled (0.30 → 0.60); others scaled proportionally
+    # to keep the sum at 1.0 (scale factor = 0.40 / 0.70 ≈ 0.5714).
+    # Revert by swapping in the original block below.
     WEIGHTS = {
-        "energy":       0.30,
-        "valence":      0.25,
-        "danceability": 0.20,
-        "acousticness": 0.15,
-        "tempo":        0.10,
+        "energy":       0.60,   # was 0.30
+        "valence":      0.15,   # was 0.25
+        "danceability": 0.12,   # was 0.20
+        "acousticness": 0.08,   # was 0.15
+        "tempo":        0.05,   # was 0.10
     }
+    # Original weights (restore when done):
+    # WEIGHTS = {
+    #     "energy":       0.30,
+    #     "valence":      0.25,
+    #     "danceability": 0.20,
+    #     "acousticness": 0.15,
+    #     "tempo":        0.10,
+    # }
+    assert abs(sum(WEIGHTS.values()) - 1.0) < 1e-9, f"Weights must sum to 1.0, got {sum(WEIGHTS.values())}"
 
     # Categorical bonus added on top of the weighted numerical score
     GENRE_BONUS = 0.15

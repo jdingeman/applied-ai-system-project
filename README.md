@@ -94,6 +94,12 @@ Write 1 to 2 paragraphs here about what you learned:
 
 ---
 
+![console output](image.png)
+
+![adversarial cases](image-1.png)
+
+![post-experiment double energy](image-2.png)
+
 ## 7. `model_card_template.md`
 
 Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}
@@ -231,10 +237,17 @@ A few sentences about what you learned:
 
 1. The core concept students needed to understand.
 
+- Students should understand what recommender systems are and how they use mathematical calculations to come up with recommendations based on user data. They should understand how to use the AI chatbot with and without context and how to isolate its work in small chunks.
+
 2. Where students are most likely to struggle
 
 - The instructions are confusing, particularly in Phase 2. The student would have already described their scoring method in the README.md, but this section goes on further to have the student open a new chat session, and ask Copilot to come up with another scoring system based on the data. This can cause unnecessary confusion because the student will be questioning which of the two chatbot sessions they should be going with, especially since the new chat session no longer has the context that was discussed in the previous session. The flow of steps is also confusing, and seems to imply a very rigid structure needed for development.
+- Phase 3, Step 2: Instructions says to look for `score_song(user_prefs, song)`, but there is no such function in the provided repo. Instructions also say to prompt the AI based on the "algorithm recipe" from Phase 2 but this is vague because there is no solid place/understanding of what constitutes the "algorithm recipe". Is it the flowchart? The description? Just the scoring method?
 
 3. Where AI was helpful vs. misleading
 
+- The AI is helpful with data creation and complex data. It wasn't so much misleading as it more had too much agency within the application, at least given the instructions.
+
 4. One way they would guide a student without giving the answer
+
+- I'd ask them what they understand before they try to tackle the larger problems. That way, I can have them talk through the beginning steps up to the point that they get lost to see if retracing their steps helps lead them in a more concrete direction.
