@@ -1,23 +1,36 @@
-# 🎵 Music Recommender Simulation
+# 🎵 VibeCheck - Music Recommender
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+In this project, a user provides input for a song they want to listen to. The application parses this query into a request to the Spotify API and returns 5 top ranked songs based on this query. Gemini provides a thoughtful reasoning for each song returned. This application allows users to find quick picks based on their mood, because sometimes searching through endless playlists is just too much.
 
 ---
 
 ## How The System Works
 
-The recommender will use a Gaussian Similarity approach to weigh songs against a user's preferences. The most important attributes for the similarity score are energy, valence, danceability, acousticness and a normalized tempo_bpm. `UserProfile` will store the value of these attributes based on the user's preference. The `Recommender` will calculate the score of a song using the formula `score = e^(-(diff^2) / (2*sigma^2)`, where `diff = |user_preference - song_value|` for each attribute, and where sigma is the tolerance level of the `Recommender` for each attribute. Songs will be recommended based on their total score and how they compare to each other.
+VibeCheck uses a four-step RAG (Retrieval-Augmented Generation) pipeline:
+
+1. **Query parsing (Gemini)** — The user's natural language input (e.g. _"chill lo-fi for late night studying"_) is sent to Gemini, which converts it into a structured preference profile: target values for energy, valence, danceability, acousticness, and tempo, plus a genre and mood label.
+
+2. **Track retrieval (Spotify)** — The parsed genre seeds are used to search the Spotify catalog for real candidate tracks. Audio features are requested from Spotify's `/audio-features` endpoint; if that is unavailable, per-track values are estimated by adding random variation around the user's targets so that each candidate is still distinct.
+
+3. **Gaussian scoring (recommender)** — Every candidate track is scored against the user's preferences using a Gaussian similarity function: `score = e^(-(diff² / 2σ²))`, where `diff` is the absolute difference between the user's target and the song's value for each feature, and `σ = 0.2` is the tolerance. Features are weighted (energy 60%, valence 15%, danceability 12%, acousticness 8%, tempo 5%), with flat bonuses added for genre (+0.15) and mood (+0.10) matches. The top 5 songs are selected.
+
+4. **Explanation generation (Gemini)** — The top 5 ranked songs are passed back to Gemini, which writes a short personalized explanation for each one grounded in the user's original query and the song's audio features.
+
+---
+
+## Architecture Overview
+
+![System Design](<assets/diagrams/VibeCheck System Design.png>)
+
+The design of the application is split into 5 essential levels:
+
+- UI (Streamlit app)
+- LLM (Google Gemini API, model `gemma-3-1b-it`)
+- Music Catalog (Spotify Web API and local `data/songs.csv` as a fallback)
+- Scoring (Pure Python using Gaussian similarity)
+- Config (the local environment setup required to wire everything together)
 
 ---
 
@@ -39,31 +52,64 @@ The recommender will use a Gaussian Similarity approach to weigh songs against a
 pip install -r requirements.txt
 ```
 
-3. Run the app:
+3. Create a .env in the root folder using .env.example as a guide
 
-```bash
-python -m src.main
+4. Sign up at developer.spotify.com, and create an App with the following settings:
+
+```
+App Name: VibeCheck
+App description: Music recommender system.
+Redirect URIs: https://example.org/callback
+Which API/SDKs are you planning to use?: Web API
 ```
 
-### Running Tests
+5. Add your Client ID and Client Secret to your .env file
 
-Run the starter tests with:
+6. Sign up for an API key at aistudio.google.com and add the key to your .env file
+
+7. Run the app:
 
 ```bash
-pytest
+streamlit run src/app.py
 ```
 
-You can add more tests in `tests/test_recommender.py`.
+### Example inputs
+
+- "chill lo-fi for late night studying"
+
+```
+#1 Gravitation - Original Mix — Gennadiy Adamenko
+#2 Feel so Good - Florito
+#3 Love to Scat - Gary B
+#4 Nemo - Ingo Herrmann
+#5 Beat It - James Long
+```
+
+- "upbeat pop for a morning workout"
+
+```
+#1 So Easy (To Fall in Love) - Olivia Dean
+#2 End of Beginning - Djo
+#3 American Girls - Harry Styles
+#4 E85 - Don Toliver
+#5 Stateside + Zara Larsson - PinkPantheress
+```
+
+- "something moody and acoustic for a rainy day"
+
+```
+#1 Everybody Hurts - Thom Cooper
+#2 Grenade - Karizma Duo
+#3 New Heights - Denis Turbide
+#4 Raining - Ai Mougi
+# 5 Nothin Breaks Like a Heart - Landa
+```
 
 ---
 
-## Experiments You Tried
+## Design Decisions
 
-Use this section to document the experiments you ran. For example:
-
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+The system is built using simple scoring and an LLM's interpretation in two different areas of the application. This is done to allow retrieval from the Spotify API, and generation of the explanation for why the song was ranked in the top 5 based on the user's prompt. Only 5 songs are chosen as Spotify's API is particularly limiting with the number of songs it can return. The original plan was to have a "chatbot" like feel where the application can help a user deduce down a mood for a list of songs that fit that mood, but this was scrapped once I had found out just how little usage one can use with free tiers of the API keys. Instead, it was developed into a simple query processing system that parses a user's input into a mathematical representation, sent as a seed to Spotify's API and returns a list of top scoring songs based on the 1 LLM interpretation of the query. The results are returned with another AI generated explanation for why the song matched the query passed in.
 
 ---
 

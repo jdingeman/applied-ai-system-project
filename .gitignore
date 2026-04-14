@@ -13,3 +13,9 @@ venv/
 
 # Pytest cache
 .pytest_cache/
+
+.env
+.cache
+
+# Application logs
+logs/
