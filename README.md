@@ -48,20 +48,20 @@ The design of the application is split into 5 essential levels:
 
 2. Install dependencies
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 3. Create a .env in the root folder using .env.example as a guide
 
 4. Sign up at developer.spotify.com, and create an App with the following settings:
 
-```
-App Name: VibeCheck
-App description: Music recommender system.
-Redirect URIs: https://example.org/callback
-Which API/SDKs are you planning to use?: Web API
-```
+   ```
+   App Name: VibeCheck
+   App description: Music recommender system.
+   Redirect URIs: https://example.org/callback
+   Which API/SDKs are you planning to use?: Web API
+   ```
 
 5. Add your Client ID and Client Secret to your .env file
 
@@ -69,41 +69,41 @@ Which API/SDKs are you planning to use?: Web API
 
 7. Run the app:
 
-```bash
-streamlit run src/app.py
-```
+   ```bash
+   streamlit run src/app.py
+   ```
 
 ### Example inputs
 
 - "chill lo-fi for late night studying"
 
-```
-#1 Gravitation - Original Mix — Gennadiy Adamenko
-#2 Feel so Good - Florito
-#3 Love to Scat - Gary B
-#4 Nemo - Ingo Herrmann
-#5 Beat It - James Long
-```
+  ```
+  #1 Gravitation - Original Mix — Gennadiy Adamenko
+  #2 Feel so Good - Florito
+  #3 Love to Scat - Gary B
+  #4 Nemo - Ingo Herrmann
+  #5 Beat It - James Long
+  ```
 
 - "upbeat pop for a morning workout"
 
-```
-#1 So Easy (To Fall in Love) - Olivia Dean
-#2 End of Beginning - Djo
-#3 American Girls - Harry Styles
-#4 E85 - Don Toliver
-#5 Stateside + Zara Larsson - PinkPantheress
-```
+  ```
+  #1 So Easy (To Fall in Love) - Olivia Dean
+  #2 End of Beginning - Djo
+  #3 American Girls - Harry Styles
+  #4 E85 - Don Toliver
+  #5 Stateside + Zara Larsson - PinkPantheress
+  ```
 
 - "something moody and acoustic for a rainy day"
 
-```
-#1 Everybody Hurts - Thom Cooper
-#2 Grenade - Karizma Duo
-#3 New Heights - Denis Turbide
-#4 Raining - Ai Mougi
-# 5 Nothin Breaks Like a Heart - Landa
-```
+  ```
+  #1 Everybody Hurts - Thom Cooper
+  #2 Grenade - Karizma Duo
+  #3 New Heights - Denis Turbide
+  #4 Raining - Ai Mougi
+  # 5 Nothin Breaks Like a Heart - Landa
+  ```
 
 ---
 
@@ -114,16 +114,6 @@ The system is built using simple scoring and an LLM's interpretation in two diff
 ---
 
 ## Limitations and Risks
-
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
 
 ---
 
