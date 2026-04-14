@@ -119,14 +119,6 @@ The Spotify API is a major limitation as one can only return a few number of res
 
 ---
 
-## Reflection
-
-A few sentences about what you learned:
-
-- What surprised you about how your system behaved
-- How did building this change how you think about real music recommenders
-- Where do you think human judgment still matters, even if the model seems "smart"
-
 # TF Submission: Justin Dingeman
 
 1. The core concept students needed to understand.
