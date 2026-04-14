@@ -25,7 +25,7 @@ end
         H1["👤 Human Checkpoint 1\nUser reads & refines\ntheir own query before submit"]
         H2["👤 Human Checkpoint 2\nUser reviews results · inspects\nparsed prefs JSON in expander\nCan re-query if unsatisfied"]
         T1["🧪 Unit Tests\ntests/test_recommender.py\nScoring + explanation tests\nRuns fully offline"]
-        T2["🧪 Adversarial Profiles\nsrc/main.py\n6 edge-case stress tests\nextreme BPM, empty prefs, etc."]
+        T2["🧪 Adversarial Profiles\nsrc/scorer_cli.py\n6 edge-case stress tests\nextreme BPM, empty prefs, etc."]
     end
 
     INPUT -->|"raw query string"| QP

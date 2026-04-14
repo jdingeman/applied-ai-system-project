@@ -48,7 +48,7 @@ class Recommender:
 def load_songs(csv_path: str) -> List[Dict]:
     """
     Loads songs from a CSV file.
-    Required by src/main.py
+    Required by src/scorer_cli.py
     """
     import csv
     songs = []

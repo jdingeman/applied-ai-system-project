@@ -115,6 +115,8 @@ The system is built using simple scoring and an LLM's interpretation in two diff
 
 ## Limitations and Risks
 
+The Spotify API is a major limitation as one can only return a few number of results. Another limitation is Gemini API. I had to use a lightweight model to avoid running into errors due to too many API requests being called. This may cause less than ideal matches and poor explanations. The limit on the API requests can also result in the application falling back on the data.csv, and output suggestions that don't exist or are just too far mismatched from what the user actually wants to listen to.
+
 ---
 
 ## Reflection
@@ -129,16 +131,16 @@ A few sentences about what you learned:
 
 1. The core concept students needed to understand.
 
->
+> Students should understand how to take a project and expand on its capabilities and functionality. They should be comfortable collaborating with and verifying AI implementations and output, as well as questioning it when they find something off about its suggestions.
 
 2. Where students are most likely to struggle
 
->
+> Students are likely to struggle with the initial set up since they may not understand using git that well, but the instructions are pretty straightforward. Elsewhere, they may struggle brining an idea to fruition or keeping control of the AI's implementations. It's very easy to get lost and let the AI take control of the project based on its understanding, rather than their own. If they can't properly express their ideas, they will not be able to push back on the AI properly to avoid it coming up with odd choices.
 
 3. Where AI was helpful vs. misleading
 
->
+> I used Claude Code. It was helpful in coming up with the functions and connecting the pieces together to get the app functioning. It was misleading in implementing the functions that call the Spotify API because it kept implementing deprecated functions, using incorrect limits, etc. It seemed like its knowledge was behind on the current state of the API.
 
 4. One way they would guide a student without giving the answer
 
->
+> For a large project like this, the risk is always getting too far into an AI implementation and not feeling comfortable to scale back on it. If they become lost, I would have them retrace their steps through the development and identify at which point they feel they lost the understanding of the implementation of the AI. Then, have them check out what exactly was done at that time and see if they can explain the implementation in their own words, even line by line.

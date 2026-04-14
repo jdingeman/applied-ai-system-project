@@ -25,7 +25,7 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
-# Adversarial profiles — mirrored from src/main.py for in-app debug testing
+# Adversarial profiles — mirrored from src/scorer_cli.py for in-app debug testing
 # ---------------------------------------------------------------------------
 
 ADVERSARIAL_PROFILES: Dict[str, Dict] = {

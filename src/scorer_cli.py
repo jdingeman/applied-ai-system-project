@@ -2,9 +2,9 @@
 Command line runner for the Music Recommender.
 
 Usage:
-  python src/main.py                 # runs both sections
-  python src/main.py --granular      # score_song unit tests only
-  python src/main.py --adversarial   # edge-case profile tests only
+  python src/scorer_cli.py                 # runs both sections
+  python src/scorer_cli.py --granular      # score_song unit tests only
+  python src/scorer_cli.py --adversarial   # edge-case profile tests only
 
 Sections
 --------
